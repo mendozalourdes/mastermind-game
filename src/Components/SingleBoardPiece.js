@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Results = () => {
+const SingleBoardPiece = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const Results = () => {
     );
 };
 
-export default Results;
+export default SingleBoardPiece;
