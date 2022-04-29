@@ -36,3 +36,51 @@
     transform: rotate(360deg);
   }
 }
+.title {
+  font-size: 5em;
+  font-weight: bolder;
+}
+
+.instructions {
+  display: flex;
+  flex-direction: column;
+  /* border: 5px gray solid; */
+  align-items: center;
+  /* border-radius: 10px; */
+
+}
+
+.collapsible {
+  background-color: rgb(196, 21, 181);
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 50%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+  border: 5px purple solid;
+  border-radius: 10px;
+}
+
+.content {
+  width: auto;
+  height: auto;
+  margin-top: 10px;
+  border: 1px solid #686868;
+  display: none;
+  justify-content: center;
+  border-radius: 10px;
+  width: 50%;
+}
+
+.rules {
+  display: flex;
+  justify-content: center;
+}
+
+.show {
+  display: flex;
+  flex-direction: column;
+}
