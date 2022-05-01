@@ -1,53 +1,20 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: column;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 .title {
   font-size: 5em;
   font-weight: bolder;
+  text-align: center;
 }
 
 .instructions {
   display: flex;
   flex-direction: column;
-  /* border: 5px gray solid; */
   align-items: center;
-  /* border-radius: 10px; */
-
 }
 
 .collapsible {
@@ -83,4 +50,194 @@
 .show {
   display: flex;
   flex-direction: column;
+}
+
+.rows {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  /* border: 5px orange solid; */
+  width: 30%;
+  flex-direction: row;
+}
+
+.one-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  margin: 5%;
+}
+
+.circle {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #777;
+  margin-right: 8px;
+  border-radius: 25px;
+  background-color: #f0eaed;
+  /* cursor: none; */
+}
+
+/* .peg::hover {
+
+} */
+
+.circles-numbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.board-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+  width: 75%;
+}
+
+.demo {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  border: 3px solid gray;
+  /* background-color: #F0EAED; */
+}
+
+.input-row {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guess-input-section {
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 40%;
+}
+
+form {
+  margin: 2em 0;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  box-shadow: 18px 18px 35px #d9d9d9, -18px -18px 36px #ffffff;
+}
+
+input {
+  width: 2em;
+  height: 2em;
+  font-size: 1.5em;
+  text-align: center;
+  border: none;
+  border-radius: 0.5rem;
+  margin: 5px;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  box-shadow: 28px 28px 56px #d9d9d9, -28px -28px 56px #ffffff;
+}
+
+.green {
+  background: #8fbe00;
+}
+.red {
+  background: #e22d2d;
+}
+.blue {
+  background: #008c9e;
+}
+.yellow {
+  background: #f8ca00;
+}
+.purple {
+  background: #993394;
+}
+.pink {
+  background: #ffc0cb;
+}
+.magenta {
+  background: #ff00ff;
+}
+.orange {
+  background: #ffa500;
+}
+
+.button-57 {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #3dd1e7;
+  color: #18181a;
+  display: inline-block;
+  font-size: 100%;
+  line-height: 15px;
+  padding: 18px 18px 17px;
+  text-decoration: none;
+  cursor: pointer;
+  background: #fff;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  border-radius: 12px;
+}
+
+.button-57 span:first-child {
+  position: relative;
+  transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
+  z-index: 10;
+}
+
+.button-57 span:last-child {
+  color: white;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
+  z-index: 100;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transform: translateY(225%) translateX(-50%);
+  height: 14px;
+  line-height: 13px;
+}
+
+.button-57:after {
+  content: "";
+  position: absolute;
+  bottom: -50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
+  transform-origin: bottom center;
+  transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
+  transform: skewY(9.3deg) scaleY(0);
+  z-index: 50;
+}
+
+.button-57:hover:after {
+  transform-origin: bottom center;
+  transform: skewY(9.3deg) scaleY(2);
+}
+
+.button-57:hover span:last-child {
+  transform: translateX(-50%) translateY(-100%);
+  opacity: 1;
+  transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
 }
