@@ -1,129 +1,107 @@
-import React from 'react';
-import SingleBoardPiece from './SingleBoardPiece';
-import { useState, useEffect, useRef } from 'react';
+import React from "react";
+import SingleBoardPiece from "./SingleBoardPiece";
+import { useState, useEffect, useRef } from "react";
 // import { useForm } from 'react-hook-form';
 
+const GuessInput = ({
+  secretCode,
+  checkNumPlacement,
+  checkCorrectNumsGuess,
+}) => {
+  let colors = {
+    0: "green",
+    1: "red",
+    2: "blue",
+    3: "yellow",
+    4: "purple",
+    5: "pink",
+    6: "magenta",
+    7: "orange",
+  };
 
-const GuessInput = ({secretCode}) => {
+  const [userGuess, setUserGuess] = useState(null);
+  const [finalUserGuess, setFinalUserGuess] = useState(null);
+  const [allUserGuesses, setAllUserGuesses] = useState([]);
+  const [correctNumPlacement, setCorrectNumPlacement] = useState(null);
+  const [correctNumsGuess, setCorrectNumsGuess] = useState(null);
 
-    let colors = {
-        0: 'green',
-        1: 'red',
-        2: 'blue',
-        3: 'yellow',
-        4: 'purple',
-        5: 'pink',
-        6: 'magenta',
-        7: 'orange'
-      }
+  const onSubmit = (event) => {
+    event.preventDefault();
+    let guess = Object.values(userGuess);
+    setAllUserGuesses([...allUserGuesses, guess]);
+    setCorrectNumPlacement(checkNumPlacement(guess, secretCode));
+    setCorrectNumsGuess(checkCorrectNumsGuess(guess, secretCode));
 
-    const [userGuess, setUserGuess] = useState(null)
-    const [finalUserGuess, setFinalUserGuess] = useState(null)
-    const [allUserGuesses, setAllUserGuesses] = useState([])
-    // const [user]
+    clearInputs(event);
+  };
 
-    const onSubmit = (event) => {
-        event.preventDefault();
-        // setFinalUserGuess(Object.values(userGuess))
-        console.log("guesssss", userGuess)
-        console.log("userGuess", Object.values(userGuess))
-        console.log("object", Object.entries(userGuess))
-        setAllUserGuesses([...allUserGuesses, Object.values(userGuess)])
+  const getInputValue = (event) => {
+    const numberValue = parseInt(event.target.value);
+    setUserGuess({
+      ...userGuess,
+      [event.target.name]: numberValue,
+    });
+  };
 
-        //need to clear fields after submit. 
-        clearInputs(event)
-        //this is where i need to 
-
-
-    }
-
-    const getInputValue = (event)=>{
-        const numberValue = parseInt(event.target.value)
-        setUserGuess({
-            ...userGuess,
-            [event.target.name]: numberValue
-          });
-
-        //   console.log("state", state)
-    // console.log("objectValues", Object.values(state))
-    // console.log('mapppp', Object.values(state).map(num => parseInt(num)))
-    // setUserGuess(Object.values(state).map(num => parseInt(num)))
-    // console.log("userGuess" , userGuess)
-
-    };
-
-    const clearInputs = (event) => {
-        Array.from(document.querySelectorAll("input")).forEach(
-            input => (input.value = "")
-          );
-        setUserGuess(null);
- 
-      };
-
-    let allCircles = Object.values(colors).map((color, i) => {
-        console.log("color?", color, i)
-        return (
-            <section className="circles-numbers">
-                <div className={"one-row circle demo" + " " + color }></div>
-                <p>{i + 1}</p>
-            </section>
-            )
-    })
-
-    let basicGame = [1, 2, 3, 4]
-    let basicForm = basicGame.map((input, i) => {
-        return (
-            // <form id="inputForm" className="input-form" onSubmit={onSubmit} >
-            <input
-               className="num-input-all"
-               type="text"
-               name={input}
-               id={i}
-                min='0'
-                max='7'
-               onKeyPress={(event) => {
-                   if (!/[0-7]/.test(event.key)) {
-                       event.preventDefault();
-                   }
-               }}
-               required 
-               minLength={1} 
-               maxLength={1}
-            //    value={userGuess[i]}
-               onChange={getInputValue}
-            //    value=""
-               />
-                // </form>
-        )
-    })
-
-
-    
-    return (
-    <div className="guess-input-section">
-        <div className="rows input-row">
-            {allCircles}
-        </div>
-    <form className="form-section input-form" onSubmit={onSubmit}>
-         {basicForm}
-    <button
-        type="submit"
-        className="submit-button"
-        id="submitBtn"
-    //   disabled={!this.state.guessReady}
-    //   onClick={(event) => this.submitGuess(event)}
-        title="Submit My Guess!"
-        >
-        Submit Guess!
-    </button>
-</form>
-
-        </div>
-
- 
-            
-  
+  const clearInputs = (event) => {
+    Array.from(document.querySelectorAll("input")).forEach(
+      (input) => (input.value = "")
     );
+    setUserGuess(null);
+  };
+
+  let allCircles = Object.values(colors).map((color, i) => {
+    return (
+      <section className="circles-numbers">
+        <div key={i} className={"one-row circle demo" + " " + color}></div>
+        <p>{i}</p>
+      </section>
+    );
+  });
+
+  let basicGame = [1, 2, 3, 4];
+  let basicForm = basicGame.map((input, i) => {
+    return (
+      <input
+        className="num-input-all"
+        type="text"
+        name={input}
+        id={i}
+        key={i}
+        min="0"
+        max="7"
+        onKeyPress={(event) => {
+          if (!/[0-7]/.test(event.key)) {
+            event.preventDefault();
+          }
+        }}
+        required
+        maxLength={1}
+        minLength={1}
+        onChange={getInputValue}
+      />
+    );
+  });
+
+  return (
+    <div className="guess-input-section">
+      <div className="rows input-row">{allCircles}</div>
+      <form className="form-section input-form" onSubmit={onSubmit}>
+        {basicForm}
+
+        <button
+          className="button-57"
+          role="button"
+          type="submit"
+          id="submitBtn"
+          title="Submit My Guess!"
+        >
+          <span class="text">Submit</span>
+          <span>You Sure?</span>
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default GuessInput;
