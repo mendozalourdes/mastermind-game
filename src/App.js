@@ -94,7 +94,6 @@ const App = () => {
             checkNumPlacement={checkNumPlacement}
             checkCorrectNumsGuess={checkCorrectNumsGuess}
           />
-          <BoardGame secretCode={secretCode} />
         </div>
       </main>
     );

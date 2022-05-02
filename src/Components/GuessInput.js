@@ -2,22 +2,24 @@ import React from "react";
 import SingleBoardPiece from "./SingleBoardPiece";
 import { useState, useEffect, useRef } from "react";
 // import { useForm } from 'react-hook-form';
+import BoardGame from "./BoardGame";
+import { colors } from "../Utils/colors";
 
 const GuessInput = ({
   secretCode,
   checkNumPlacement,
   checkCorrectNumsGuess,
 }) => {
-  let colors = {
-    0: "green",
-    1: "red",
-    2: "blue",
-    3: "yellow",
-    4: "purple",
-    5: "pink",
-    6: "magenta",
-    7: "orange",
-  };
+//   let colors = {
+//     0: "green",
+//     1: "red",
+//     2: "blue",
+//     3: "yellow",
+//     4: "purple",
+//     5: "pink",
+//     6: "magenta",
+//     7: "orange",
+//   };
 
   const [userGuess, setUserGuess] = useState(null);
   const [finalUserGuess, setFinalUserGuess] = useState(null);
@@ -29,6 +31,7 @@ const GuessInput = ({
     event.preventDefault();
     let guess = Object.values(userGuess);
     setAllUserGuesses([...allUserGuesses, guess]);
+    console.log("allUserrrrr", allUserGuesses)
     setCorrectNumPlacement(checkNumPlacement(guess, secretCode));
     setCorrectNumsGuess(checkCorrectNumsGuess(guess, secretCode));
 
@@ -44,7 +47,7 @@ const GuessInput = ({
   };
 
   const clearInputs = (event) => {
-    Array.from(document.querySelectorAll("input")).forEach(
+   document.querySelectorAll("input").forEach(
       (input) => (input.value = "")
     );
     setUserGuess(null);
@@ -52,7 +55,7 @@ const GuessInput = ({
 
   let allCircles = Object.values(colors).map((color, i) => {
     return (
-      <section className="circles-numbers">
+      <section key={i} className="circles-numbers">
         <div key={i} className={"one-row circle demo" + " " + color}></div>
         <p>{i}</p>
       </section>
@@ -96,10 +99,11 @@ const GuessInput = ({
           id="submitBtn"
           title="Submit My Guess!"
         >
-          <span class="text">Submit</span>
+          <span className="text">Submit</span>
           <span>You Sure?</span>
         </button>
       </form>
+      {allUserGuesses.length >= 1 && <BoardGame allUserGuesses={allUserGuesses} secretCode={secretCode} colors={colors}/>}
     </div>
   );
 };
