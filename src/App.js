@@ -2,7 +2,6 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 import * as React from "react";
-import BoardGame from "./Components/BoardGame";
 import GuessInput from "./Components/GuessInput";
 import Header from "./Components/Header";
 import Results from "./Components/Results";
@@ -15,6 +14,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [secretDifficultCode, setSecretDifficultCode] = useState("");
+  const [hints, setHints] = useState([])
 
   const getBasicCode = () => {
     let url = `https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new`;
@@ -49,38 +49,36 @@ const App = () => {
     getDifficultCode();
   }, []);
 
-  const checkNumPlacement = (userGuess) => {
-    let secret = secretCode;
-
-    let SecretCode = [...secret];
+  const checkNumPlacement = (userGuess, secretNums) => {
+     secretNums = [...secretCode]
 
     const checkPlacement = userGuess.reduce((acc, num, i) => {
-      if (SecretCode[i] === num) {
+      if (secretNums[i] === num) {
         acc++;
       }
       return acc;
     }, 0);
 
-    // console.log("placement", checkPlacement);
     return checkPlacement;
   };
 
-  const checkCorrectNumsGuess = (userGuess) => {
-    let secret = secretCode;
-    let SecretCode = [...secret];
+  const checkCorrectNumsGuess = (userGuess, secret) => {
+    secret = [...secretCode]
 
     let matches = [];
 
     for (let i = 0; i < userGuess.length; i++) {
-      if (SecretCode.includes(userGuess[i])) {
+      if (secret.includes(userGuess[i])) {
         matches.push(userGuess[i]);
-        SecretCode.splice(SecretCode.indexOf(userGuess[i]), 1);
+        secret.splice(secret.indexOf(userGuess[i]), 1);
       }
     }
 
-    // console.log("matches", matches);
     return matches.length;
   };
+
+ 
+
 
   if (secretCode) {
     return (
@@ -89,6 +87,7 @@ const App = () => {
           <Header />
           <p>{secretCode}</p>
           <p>{secretDifficultCode}</p>
+          {/* <Results/> */}
           <GuessInput
             secretCode={secretCode}
             checkNumPlacement={checkNumPlacement}
