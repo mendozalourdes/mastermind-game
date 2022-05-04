@@ -1,42 +1,66 @@
 import React from "react";
 import SingleBoardPiece from "./SingleBoardPiece";
 import { useState, useEffect, useRef } from "react";
-// import { useForm } from 'react-hook-form';
 import BoardGame from "./BoardGame";
 import { colors } from "../Utils/colors";
+import Results from "./Results";
+import Hints from "./Hints";
 
 const GuessInput = ({
   secretCode,
   checkNumPlacement,
   checkCorrectNumsGuess,
+//   checkHints
 }) => {
-//   let colors = {
-//     0: "green",
-//     1: "red",
-//     2: "blue",
-//     3: "yellow",
-//     4: "purple",
-//     5: "pink",
-//     6: "magenta",
-//     7: "orange",
-//   };
 
   const [userGuess, setUserGuess] = useState(null);
-  const [finalUserGuess, setFinalUserGuess] = useState(null);
   const [allUserGuesses, setAllUserGuesses] = useState([]);
   const [correctNumPlacement, setCorrectNumPlacement] = useState(null);
   const [correctNumsGuess, setCorrectNumsGuess] = useState(null);
+  const [hints, setHints] = useState([]);
 
   const onSubmit = (event) => {
     event.preventDefault();
     let guess = Object.values(userGuess);
     setAllUserGuesses([...allUserGuesses, guess]);
-    console.log("allUserrrrr", allUserGuesses)
     setCorrectNumPlacement(checkNumPlacement(guess, secretCode));
     setCorrectNumsGuess(checkCorrectNumsGuess(guess, secretCode));
+    setHints([...hints, (checkHints(guess, secretCode))]);
+
 
     clearInputs(event);
   };
+
+  const checkHints = (userGuess, secretCode) => {
+    let secretCopy = [...secretCode]
+    let guessCopy = [...userGuess]
+  
+    let hints = []
+    
+      for (var i = 0; i < secretCode.length; i++) {
+        if (userGuess[i] === secretCode[i]) {
+          hints.push('exact-match');
+    secretCopy.splice(secretCopy.indexOf(userGuess[i]), 1)
+    guessCopy.splice(guessCopy.indexOf(userGuess[i]), 1)
+        }
+      }
+    
+      for (var j = 0; j < secretCode.length; j++) {
+          if(secretCopy.includes(guessCopy[j])){
+              console.log("guessCopy[j", guessCopy[j])
+             hints.push('almost-match')
+           secretCopy.splice(secretCopy.indexOf(guessCopy[j]), 1)
+          }
+      }
+
+      for (let i = 0; i <= 4; i++ ) {
+          if (hints.length < 4) {
+              hints.push('nope')
+          }
+      }
+console.log("hints pre sort", hints)      
+      return hints 
+    }
 
   const getInputValue = (event) => {
     const numberValue = parseInt(event.target.value);
@@ -45,6 +69,8 @@ const GuessInput = ({
       [event.target.name]: numberValue,
     });
   };
+
+
 
   const clearInputs = (event) => {
    document.querySelectorAll("input").forEach(
@@ -88,7 +114,14 @@ const GuessInput = ({
 
   return (
     <div className="guess-input-section">
+        {/* <Results/> */}
       <div className="rows input-row">{allCircles}</div>
+        {allUserGuesses.length >= 1 && <Results allUserGuesses={allUserGuesses} />}
+        <section className="guess-input-section">
+        {allUserGuesses.length >= 1 && <BoardGame allUserGuesses={allUserGuesses} secretCode={secretCode} colors={colors} allHints={hints}/>}
+        {/* {allUserGuesses.length >= 1 && <Hints allUserGuessesLength={allUserGuesses.length} hints={hints}/>} */}
+
+        </section>
       <form className="form-section input-form" onSubmit={onSubmit}>
         {basicForm}
 
@@ -103,7 +136,6 @@ const GuessInput = ({
           <span>You Sure?</span>
         </button>
       </form>
-      {allUserGuesses.length >= 1 && <BoardGame allUserGuesses={allUserGuesses} secretCode={secretCode} colors={colors}/>}
     </div>
   );
 };

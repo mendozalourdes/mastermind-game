@@ -1,19 +1,29 @@
 import React from "react";
-import SingleBoardPiece from "./SingleBoardPiece";
-import { useState } from "react";
-import { colors } from "../Utils/colors";
 import Row from "./Row";
 
 
-const BoardGame = ({allUserGuesses, secretCode}) => {
+const BoardGame = ({allUserGuesses, allHints}) => {
+    console.log("hints in board game", allHints)
+    // let allTheHings = [...allHints]
+
+// let everyHint = allTheHings.map((hint, i) => {
+//     return  <Row
+//     key={"row_" + i}
+//     id={i + 1}
+//     allHints={allHints}
+//     oneHint={hint}
+//   />
+// })
 
   let everyGuessRow = allUserGuesses.map((guess, i) => {
     
         return  <Row
                     key={"row_" + i}
-                    id={i}
+                    id={i + 1}
                     guess={guess}
                     allUserGuesses={allUserGuesses[i]}
+                    allHints={allHints}
+                    oneHint={allHints[i]}
                   />
 
   
@@ -32,9 +42,9 @@ const BoardGame = ({allUserGuesses, secretCode}) => {
 //   }
 
   return <div className="board-game">
-       {/* <div className="one-guess-section">  */}
        {everyGuessRow}
-      
+       {/* {everyHint} */}
+       {/* {allHints.length >= 1 && everyHint} */}
       </div>;
 };
 
