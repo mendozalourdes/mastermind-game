@@ -4,7 +4,7 @@ import BoardGame from "./BoardGame";
 import { colors } from "../Utils/colors";
 import Results from "./Results";
 
-const GuessInput = ({
+const GameContainer = ({
   secretCode,
   checkNumPlacement,
   checkCorrectNumsGuess, getBasicCode
@@ -199,4 +199,4 @@ const GuessInput = ({
   );
 };
 
-export default GuessInput;
+export default GameContainer;

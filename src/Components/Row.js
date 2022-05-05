@@ -6,13 +6,9 @@ const { useState, useEffect, useRef } = React;
 
 
 const Row = ({color, allUserGuesses, guess, id, allHints, oneHint}) => {
-console.log("allHints in row", allHints)
-console.log("one hint in row ", oneHint)
-    // console.log("allUserrrr", allUserGuesses)
-    console.log("i am in row now")
+
 
            let oneGuess = allUserGuesses.map((num, i ) => {
-                // console.log("color at num", colors[num])
                 return  <SingleBoardPiece
                             key={"row_" + i}
                             id={i}
