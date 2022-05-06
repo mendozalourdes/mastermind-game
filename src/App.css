@@ -254,8 +254,8 @@ input {
   border: 3px solid purple;
   width: 50%;
   height: 10em;
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   border-radius: 8px;
 }
 
@@ -290,4 +290,13 @@ input {
 
 .hints {
   border-bottom: 3px solid rebeccapurple;
+}
+
+.dialog {
+  box-shadow: 0 8px 6px -6px black;
+  border: 5px solid rgb(196, 21, 181);
+  /* position: static; */
+  top: 40%;
+  width: 25%;
+  height: 25%;
 }

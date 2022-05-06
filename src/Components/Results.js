@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 
-const Results = ({allUserGuesses}) => {
+const Results = ({allUserGuesses, guessesLeft, gamesWon, gamesLost}) => {
     const [gameOver, setGameover] = useState(false);
 
     const countEveryGuess = () => {
@@ -11,13 +11,13 @@ const Results = ({allUserGuesses}) => {
         }
     }
 
-// console.log("???",  countEveryGuess(), gameOver)
     return (
         <section className="results">
             <h2>Results</h2>
             <div className="remaining-guesses">
-                <p>Remaining Guesses</p>
-            <p>{10 - allUserGuesses.length}</p>
+                <p>Remaining Guesses : {guessesLeft} </p>
+            <p>Games Lost: {gamesLost}</p>
+            <p>Games Won: {gamesWon}</p>
 
             </div>
         {gameOver && <h3>Game Over!</h3>}
