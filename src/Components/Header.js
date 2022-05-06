@@ -9,7 +9,6 @@ const Header = () => {
     return (
       <section key={i} className="circles-numbers">
         <div key={i} className={"one-row circle demo" + " " + color}>{i}</div>
-        {/* <p>{i}</p> */}
       </section>
     );
   });
