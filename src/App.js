@@ -1,10 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { Routes, Route, Link } from "react-router-dom";
 import * as React from "react";
 import GameContainer from "./Components/GameContainer";
 import Header from "./Components/Header";
-import Results from "./Components/Results";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import loadingSpin from "./Images/loadingSpin.gif";
@@ -75,9 +73,6 @@ const App = () => {
 
     return matches.length;
   };
-
- 
-
 
   if (secretCode) {
     return (
