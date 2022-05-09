@@ -2,7 +2,7 @@ import React from "react";
 import Row from "./Row";
 
 
-const BoardGame = ({allUserGuesses, allHints}) => {
+const BoardGame = ({allUserGuesses, allHints, secretCode, guessesLeft}) => {
 
   let everyGuessRow = allUserGuesses.map((guess, i) => {
     
@@ -18,10 +18,35 @@ const BoardGame = ({allUserGuesses, allHints}) => {
   
 })
 
+let gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+const basicGameRows = gameBoard.map((num, i) => {
+  return  <div key={i + 1} className="single-row">
+  <div  id={i + 1} className={" circle demo " }>❓</div>
+  <div  id={i + 1} className={" circle demo " }>❓</div>
+  <div id={i + 1} className={" circle demo " }>❓</div>
+  <div id={i + 1} className={" circle demo " }>❓</div>
+</div>
+
+})
+
+
+    const difficultGameRows = gameBoard.map((num, i) => {
+      return  <div key={i + 1} className="single-row"> 
+      <div  id={i + 1} className={" circle demo " }>❓</div>
+      <div  id={i + 1} className={" circle demo " }>❓</div>
+      <div id={i + 1} className={" circle demo " }>❓</div>
+      <div id={i + 1} className={" circle demo " }>❓</div>
+      <div id={i + 1} className={" circle demo " }>❓</div>
+      <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
+    </div>
+    
+    })
+
 
 
   return <div className="board-game">
-       {everyGuessRow}
+    {allUserGuesses.length ? everyGuessRow : (secretCode.length === 4 ? basicGameRows : difficultGameRows)}
       </div>;
 };
 

@@ -1,47 +1,44 @@
-import React from 'react';
+import React from "react";
 import { colors } from "../Utils/colors";
-import SingleBoardPiece from './SingleBoardPiece';
-import Hints from './Hints';
 const { useState, useEffect, useRef } = React;
 
+const Row = ({ allUserGuesses, id, oneHint }) => {
+  const eachGuessColor = () => {
+    return allUserGuesses.map((guess, i) => {
+      return <div key={i + 1} id={i + 1} className={" circle demo " + colors[guess]}>{guess}</div>;
+    });
+  };
 
-const Row = ({color, allUserGuesses, guess, id, allHints, oneHint}) => {
-
-
-           let oneGuess = allUserGuesses.map((num, i ) => {
-                return  <SingleBoardPiece
-                            key={"row_" + i}
-                            id={i}
-                            guess={guess}
-                            allUserGuesses={allUserGuesses}
-                            color={colors[num]}
-                          />
-        
-        
+  const eachHint = () => {
+    return oneHint.map((singleHint, i) => {
+      return (
+        <div key={i + 1} id={i + 1} className="hint-section">
+          <p
+            className={
+              singleHint === "exact-match"
+                ? "exact-match"
+                : singleHint === "almost-match"
+                ? "almost-match"
+                : "nope"
             }
-            )
-
-    let singleHint = oneHint.map((hint, i ) => {
-        return  <Hints
-        key={i}
-        id={i}
-        singleHint={hint}
-        oneHint={oneHint}
-        allHints={allHints}
-      />
-
-
-      })
-
-    return (
-        <div className="single-row" >
-            {11 - id}. {oneGuess}
-            <div className="hints-section">
-
-            {singleHint}
-            </div>
+          >
+            {singleHint === "exact-match"
+              ? "🟢"
+              : singleHint === "almost-match"
+              ? "🟡"
+              : "🔴"}{" "}
+          </p>
         </div>
-    );
+      );
+    });
+  };
+
+  return (
+    <div className="single-row">
+      {11 - id}. {eachGuessColor()}
+      <div className="hints-section">{eachHint()}</div>
+    </div>
+  );
 };
 
 export default Row;

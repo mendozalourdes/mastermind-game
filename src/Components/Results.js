@@ -1,15 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 
-const Results = ({allUserGuesses, guessesLeft, gamesWon, gamesLost}) => {
-    const [gameOver, setGameover] = useState(false);
-
-    const countEveryGuess = () => {
-
-        if(allUserGuesses.length === 10 ) {
-            setGameover(true)
-        }
-    }
+const Results = ({guessesLeft, gamesWon, gamesLost}) => {
 
     return (
         <section className="results">
@@ -20,7 +12,6 @@ const Results = ({allUserGuesses, guessesLeft, gamesWon, gamesLost}) => {
             <p>Games Won: {gamesWon}</p>
 
             </div>
-        {gameOver && <h3>Game Over!</h3>}
         </section>
     );
 };
