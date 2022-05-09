@@ -26,6 +26,7 @@ const Header = () => {
         </button>
         {/* <div className="rules">  */}
         <ul className={isOpen ? "content show rules" : "content"}>
+          <p className="underline">Rules</p>
           <li>1. Computer will generate a four digit code. </li>
           <li>
             2. Player attempts to guess the code, inputting guess into form.
@@ -43,8 +44,25 @@ const Header = () => {
           <li>
             6. Computer will offer the player the opportunity to play again.{" "}
           </li>
+          <div className="expectations">
+            <p className="underline">Hints</p>
+          <p>
+            The player had guessed a correct number and its correct location:  🟢
+            </p>
+
+            <p>
+
+The player had guess a correct number : 🟡
+            </p>
+            <p>
+The player’s guess was incorrect: 🔴
+            </p>
+
+              
+        </div>
         </ul>
-        <div className="rows input-row">{allCircles}</div>
+        <div className="description-row">{allCircles}</div>
+
       </section>
     </div>
   );
