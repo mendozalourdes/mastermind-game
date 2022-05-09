@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import BoardGame from "./BoardGame";
 import { colors } from "../Utils/colors";
 import Results from "./Results";
+import NavBar from "./NavBar";
 
 const GameContainer = ({
   secretCode,
@@ -11,7 +12,10 @@ const GameContainer = ({
   getBasicCode,
   useLocalStorage, 
   checkHints, 
-  handleInputChange
+  handleInputChange,
+  // getDifficultCode, 
+  gameLevel, 
+  handleLevelChange
 }) => {
   const [userGuess, setUserGuess] = useState(null);
   const [allUserGuesses, setAllUserGuesses] = useState([]);
@@ -24,13 +28,20 @@ const GameContainer = ({
   const [winGame, setWinGame] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  // const [gameLevel, setGameLevel] = useState("basic")
+
 
   const bottomOfPageRef = useRef(null);
+  const inputRef0 = useRef(null);
   const inputRef1 = useRef(null);
   const inputRef2 = useRef(null);
   const inputRef3 = useRef(null);
   const inputRef4 = useRef(null);
+  const inputRef5 = useRef(null);
+  const myRefs= useRef([]);
+console.log("myRefs", myRefs.current)
 
+  console.log("gameLevel in container", gameLevel)
 
   useEffect(() => {
     bottomOfPageRef.current.scrollIntoView({ behavior: "smooth" });
@@ -77,7 +88,7 @@ const GameContainer = ({
     winOrLose();
     setGuessesLeft(guessesLeft - 1);
     clearInputs(event);
-    inputRef1.current.focus();
+    myRefs.current[0].focus();
   };
 
   const getInputValue = (event) => {
@@ -115,7 +126,48 @@ const GameContainer = ({
         </div>);});
   };
 
+  const resetGuesses = (value) => {
+    setAllUserGuesses(value)
+    setHints(value)
+  }
+
+  let fullForm = secretCode.map((num, i) => {
+    return (
+        // <form id="inputForm" className="input-form" onSubmit={onSubmit} >
+        <input
+           className="num-input-all"
+           type="text"
+           name={`${"input-"+ i}`}
+           id={i}
+           key={i}
+           min='0'
+            max='7'
+            // ref={"inputRef"+ i}
+            ref={(el) => (myRefs.current[i] = el)}
+            onPaste={(e) => {
+              e.preventDefault();
+              return false;
+            }}
+            onKeyPress={(event) => {
+              if (!/[0-7]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }}
+            required
+            disabled={winGame || gameOver}
+            maxLength={1}
+            minLength={1}
+            onChange={getInputValue}
+           />
+    )
+})
+
+
   return (
+    <div className="game">
+          <NavBar secretCode={secretCode} handleLevelChange={handleLevelChange} resetGuesses={resetGuesses} allUserGuesses={allUserGuesses} gameLevel={gameLevel}  />
+          {/* <p>{secretCode}</p>
+          <p>{secretDifficultCode}</p> */}
     <div className="guess-input-section">
       {gameOver && isOpen && (
         <dialog className="dialog" open>
@@ -153,17 +205,18 @@ const GameContainer = ({
             <span>Ready?</span>
           </button>
       <section className="guess-input-section">
-        {/* {allUserGuesses.length && ( */}
           <BoardGame
             allUserGuesses={allUserGuesses}
             secretCode={secretCode}
             colors={colors}
             allHints={hints}
+            guessesLeft={guessesLeft}
           />
-        {/* )} */}
       </section>
+
       <form className="form-section input-form" onSubmit={onSubmit}>
-        <input
+        {fullForm}
+        {/* <input
           className="num-input-all"
           type="text"
           name="input-1"
@@ -259,6 +312,54 @@ const GameContainer = ({
           minLength={1}
           onChange={getInputValue}
         />
+                <input
+          className="num-input-all"
+          type="text"
+          name="input-5"
+          id="4"
+          key="4"
+          min="0"
+          max="7"
+          ref={inputRef5}
+          onPaste={(e) => {
+            e.preventDefault();
+            return false;
+          }}
+          onKeyPress={(event) => {
+            if (!/[0-7]/.test(event.key)) {
+              event.preventDefault();
+            }
+          }}
+          required
+          disabled={winGame || gameOver}
+          maxLength={1}
+          minLength={1}
+          onChange={getInputValue}
+        />
+                <input
+          className="num-input-all"
+          type="text"
+          name="input-6"
+          id="4"
+          key="5"
+          min="0"
+          max="7"
+          ref={inputRef5}
+          onPaste={(e) => {
+            e.preventDefault();
+            return false;
+          }}
+          onKeyPress={(event) => {
+            if (!/[0-7]/.test(event.key)) {
+              event.preventDefault();
+            }
+          }}
+          required
+          disabled={winGame || gameOver}
+          maxLength={1}
+          minLength={1}
+          onChange={getInputValue}
+        /> */}
 
         {winGame || gameOver ? (
           <button className="button-57" id="submitBtn" onClick={restartGame}>
@@ -281,6 +382,7 @@ const GameContainer = ({
         )}
       </form>
       <div ref={bottomOfPageRef} />
+    </div>
     </div>
   );
 };
