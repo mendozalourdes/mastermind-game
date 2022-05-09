@@ -1,8 +1,12 @@
+ 
+/* @import url('https://fonts.googleapis.com/css2?family=Genos:ital,wght@1,800&display=swap'); */
+ 
 .App {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  font-family: 'Nunito', sans-serif;
 }
 
 .title {
@@ -22,7 +26,7 @@
   color: white;
   cursor: pointer;
   padding: 18px;
-  width: 50%;
+  width: 15em;
   border: none;
   text-align: center;
   outline: none;
@@ -32,14 +36,14 @@
 }
 
 .content {
-  width: auto;
   height: auto;
   margin-top: 10px;
   border: 1px solid #686868;
   display: none;
   justify-content: center;
   border-radius: 10px;
-  width: 50%;
+  width: 90%;
+  padding: 1.5em;
 }
 
 .rules {
@@ -52,14 +56,20 @@
   flex-direction: column;
 }
 
-.rows {
+.description-row {
   display: flex;
-  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
-  /* border: 5px orange solid; */
   width: 30%;
   flex-direction: row;
+  margin: 20px 0px 20px 0px;
+}
+
+.expectations {
+  display: flex;
+  /* justify-content:left; */
+  flex-direction: column;
+  align-items:flex-end
 }
 
 .one-row {
@@ -74,7 +84,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 100%;
   margin: 1.5%;
 }
 
@@ -86,12 +96,9 @@
   margin-right: 8px;
   border-radius: 25px;
   background-color: #f0eaed;
-  /* cursor: none; */
+  color: white;
+  font-weight:bolder;
 }
-
-/* .peg::hover {
-
-} */
 
 .circles-numbers {
   display: flex;
@@ -105,7 +112,11 @@
   flex-direction: column;
   align-items: center;
   margin-top: 5%;
-  width: 75%;
+  width: 25rem;
+  height: 100%;
+  border: 10px solid turquoise;
+  box-shadow: 0 10px 30px 6px magenta;
+  border-radius: 20px;
 }
 
 .demo {
@@ -139,7 +150,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  width: 40%;
+  width: 25rem;
 }
 
 form {
@@ -162,19 +173,19 @@ input {
 }
 
 .green {
-  background: #8fbe00;
+  background: green;
 }
 .red {
   background: #e22d2d;
 }
 .blue {
-  background: #008c9e;
+  background: blue;
 }
 .yellow {
-  background: #f8ca00;
+  background: #eecc26;
 }
 .purple {
-  background: #993394;
+  background: purple;
 }
 .pink {
   background: #ffc0cb;
@@ -182,8 +193,14 @@ input {
 .magenta {
   background: #ff00ff;
 }
+.violet {
+  background: violet;
+}
 .orange {
   background: #ffa500;
+}
+.indigo {
+  background: indigo;
 }
 
 .button-57 {
@@ -254,49 +271,78 @@ input {
   border: 3px solid purple;
   width: 50%;
   height: 10em;
-  /* display: flex;
-  justify-content: center; */
   border-radius: 8px;
+  margin-bottom: 20px;
 }
 
 .hints-section {
   /* border: 3px solid purple; */
   width: 40px;
   height: 40px;
-  margin: 20px auto;
+  margin: 20px;
   display: grid;
-  grid-template-columns: 20px 20px;
+  grid-template-columns: 10px 10px;
   grid-row: auto auto;
   grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-row-gap: 10px;
 }
 
-.exact-match {
-  /* background-image: ✅; */
-  color: orange;
-  /* border: 5px solid blue; */
-}
-
-.exact-match {
-  /* background-image: ✅; */
-  color: greenyellow;
-  /* border: 5px solid brown; */
-}
-
-.almost-match {
-  /* border: 5px solid pink; */
-
-}
 
 .hints {
   border-bottom: 3px solid rebeccapurple;
 }
 
 .dialog {
-  box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 10px 30px 6px magenta;
   border: 5px solid rgb(196, 21, 181);
-  /* position: static; */
+  position: sticky;
   top: 40%;
-  width: 25%;
-  height: 25%;
+  width: 25em;
+  height: 15em;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.win-statement, .lose-statement {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+}
+
+.win-or-lose {
+  font-size: 3em;
+}
+
+
+.close {
+  position: absolute;
+  right: 1em;
+  top: 0.5em;
+  width: 2em;
+  height: 2em;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
+.restart-button {
+  border: 1px solid orange;
 }
