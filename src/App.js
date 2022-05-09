@@ -74,6 +74,65 @@ const App = () => {
     return matches.length;
   };
 
+  const useLocalStorage = (storageKey, fallbackState) => {
+    const [value, setValue] = useState(
+      JSON.parse(localStorage.getItem(storageKey)) ?? fallbackState
+    );
+  
+    useEffect(() => {
+      localStorage.setItem(storageKey, JSON.stringify(value));
+    }, [value, storageKey]);
+  
+    return [value, setValue];
+  };
+
+  const checkHints = (userGuess, secretCode) => {
+    let secretCopy = [...secretCode];
+    let guessCopy = [...userGuess];
+
+    let hints = [];
+
+    for (var i = 0; i < secretCode.length; i++) {
+      if (userGuess[i] === secretCode[i]) {
+        hints.push("exact-match");
+        secretCopy.splice(secretCopy.indexOf(userGuess[i]), 1);
+        guessCopy.splice(guessCopy.indexOf(userGuess[i]), 1);
+      }
+    }
+
+    for (var j = 0; j < secretCode.length; j++) {
+      if (secretCopy.includes(guessCopy[j])) {
+        hints.push("almost-match");
+        secretCopy.splice(secretCopy.indexOf(guessCopy[j]), 1);
+      }
+    }
+
+    for (let i = 0; i <= secretCode.length; i++) {
+      if (hints.length < secretCode.length) {
+        hints.push("nope");
+      }
+    }
+    return hints;
+  };
+
+  const handleInputChange = (event) => {
+    const { maxLength, value, name } = event.target;
+    const [fieldName, fieldIndex] = name.split("-");
+
+    let fieldIntIndex = parseInt(fieldIndex, 10);
+
+    if (value.length >= maxLength) {
+      if (fieldIntIndex < 4) {
+        const nextfield = document.querySelector(
+          `input[name=input-${fieldIntIndex + 1}]`
+        );
+        if (nextfield !== null) {
+          nextfield.focus();
+        }
+      }
+    }
+  };
+
   if (secretCode) {
     return (
       <main>
@@ -86,6 +145,9 @@ const App = () => {
             checkNumPlacement={checkNumPlacement}
             checkCorrectNumsGuess={checkCorrectNumsGuess}
             getBasicCode={getBasicCode}
+            useLocalStorage={useLocalStorage}
+            checkHints={checkHints}
+            handleInputChange={handleInputChange}
           />
         </div>
       </main>
