@@ -13,7 +13,6 @@ const GameContainer = ({
   useLocalStorage, 
   checkHints, 
   handleInputChange,
-  // getDifficultCode, 
   gameLevel, 
   handleLevelChange
 }) => {
@@ -28,20 +27,9 @@ const GameContainer = ({
   const [winGame, setWinGame] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  // const [gameLevel, setGameLevel] = useState("basic")
-
 
   const bottomOfPageRef = useRef(null);
-  const inputRef0 = useRef(null);
-  const inputRef1 = useRef(null);
-  const inputRef2 = useRef(null);
-  const inputRef3 = useRef(null);
-  const inputRef4 = useRef(null);
-  const inputRef5 = useRef(null);
   const myRefs= useRef([]);
-console.log("myRefs", myRefs.current)
-
-  console.log("gameLevel in container", gameLevel)
 
   useEffect(() => {
     bottomOfPageRef.current.scrollIntoView({ behavior: "smooth" });
@@ -126,23 +114,23 @@ console.log("myRefs", myRefs.current)
         </div>);});
   };
 
-  const resetGuesses = (value) => {
-    setAllUserGuesses(value)
-    setHints(value)
+  const resetGuesses = (value, event) => {
+    setAllUserGuesses(value);
+    setHints(value);
+    clearInputs(event);
+    setGuessesLeft(10)
   }
 
   let fullForm = secretCode.map((num, i) => {
     return (
-        // <form id="inputForm" className="input-form" onSubmit={onSubmit} >
         <input
-           className="num-input-all"
+           className="num-input"
            type="text"
            name={`${"input-"+ i}`}
            id={i}
            key={i}
            min='0'
             max='7'
-            // ref={"inputRef"+ i}
             ref={(el) => (myRefs.current[i] = el)}
             onPaste={(e) => {
               e.preventDefault();
@@ -162,15 +150,18 @@ console.log("myRefs", myRefs.current)
     )
 })
 
+const handleResetStats = () => {
+  setGamesWon(0)
+  setGamesLost(0)
+  console.log("gamesWon", gamesWon)
+}
 
   return (
     <div className="game">
-          <NavBar secretCode={secretCode} handleLevelChange={handleLevelChange} resetGuesses={resetGuesses} allUserGuesses={allUserGuesses} gameLevel={gameLevel}  />
-          {/* <p>{secretCode}</p>
-          <p>{secretDifficultCode}</p> */}
+          <NavBar secretCode={secretCode} handleResetStats={handleResetStats} restartGame={restartGame} handleLevelChange={handleLevelChange} resetGuesses={resetGuesses} allUserGuesses={allUserGuesses} gameLevel={gameLevel}  />
     <div className="guess-input-section">
       {gameOver && isOpen && (
-        <dialog className="dialog" open>
+        <dialog className={winGame ? "dialog-win" : "dialog-lose"} open>
           <a href="#" className="close" onClick={handleShowModal}>      
           </a>
           {winGame ? (
@@ -181,7 +172,7 @@ console.log("myRefs", myRefs.current)
             </p>
           ) : (
             <p className="lose-statement">
-             <p className="win-or-lose">You Lost :(</p> 
+             <p className="win-or-lose">You Lost ;(</p> 
               <p>The secret code was:</p>
               <div className="single-row">{secretColors()}</div>{" "}
             </p>
@@ -216,151 +207,6 @@ console.log("myRefs", myRefs.current)
 
       <form className="form-section input-form" onSubmit={onSubmit}>
         {fullForm}
-        {/* <input
-          className="num-input-all"
-          type="text"
-          name="input-1"
-          id="0"
-          key="0"
-          min="0"
-          max="7"
-          ref={inputRef1}
-          onPaste={(e) => {
-            e.preventDefault();
-            return false;
-          }}
-          onKeyPress={(event) => {
-            if (!/[0-7]/.test(event.key)) {
-              event.preventDefault();
-            }
-          }}
-          required
-          disabled={winGame || gameOver}
-          maxLength={1}
-          minLength={1}
-          onChange={getInputValue}
-        />
-        <input
-          className="num-input-all"
-          type="text"
-          name="input-2"
-          id="1"
-          key="1"
-          min="0"
-          max="7"
-          ref={inputRef2}
-          onPaste={(e) => {
-            e.preventDefault();
-            return false;
-          }}
-          onKeyPress={(event) => {
-            if (!/[0-7]/.test(event.key)) {
-              event.preventDefault();
-            }
-          }}
-          required
-          disabled={winGame || gameOver}
-          maxLength={1}
-          minLength={1}
-          onChange={getInputValue}
-        />
-        <input
-          className="num-input-all"
-          type="text"
-          name="input-3"
-          id="2"
-          key="2"
-          min="0"
-          max="7"
-          ref={inputRef3}
-          onPaste={(e) => {
-            e.preventDefault();
-            return false;
-          }}
-          onKeyPress={(event) => {
-            if (!/[0-7]/.test(event.key)) {
-              event.preventDefault();
-            }
-          }}
-          required
-          disabled={winGame || gameOver}
-          maxLength={1}
-          minLength={1}
-          onChange={getInputValue}
-        />
-        <input
-          className="num-input-all"
-          type="text"
-          name="input-4"
-          id="3"
-          key="3"
-          min="0"
-          max="7"
-          ref={inputRef4}
-          onPaste={(e) => {
-            e.preventDefault();
-            return false;
-          }}
-          onKeyPress={(event) => {
-            if (!/[0-7]/.test(event.key)) {
-              event.preventDefault();
-            }
-          }}
-          required
-          disabled={winGame || gameOver}
-          maxLength={1}
-          minLength={1}
-          onChange={getInputValue}
-        />
-                <input
-          className="num-input-all"
-          type="text"
-          name="input-5"
-          id="4"
-          key="4"
-          min="0"
-          max="7"
-          ref={inputRef5}
-          onPaste={(e) => {
-            e.preventDefault();
-            return false;
-          }}
-          onKeyPress={(event) => {
-            if (!/[0-7]/.test(event.key)) {
-              event.preventDefault();
-            }
-          }}
-          required
-          disabled={winGame || gameOver}
-          maxLength={1}
-          minLength={1}
-          onChange={getInputValue}
-        />
-                <input
-          className="num-input-all"
-          type="text"
-          name="input-6"
-          id="4"
-          key="5"
-          min="0"
-          max="7"
-          ref={inputRef5}
-          onPaste={(e) => {
-            e.preventDefault();
-            return false;
-          }}
-          onKeyPress={(event) => {
-            if (!/[0-7]/.test(event.key)) {
-              event.preventDefault();
-            }
-          }}
-          required
-          disabled={winGame || gameOver}
-          maxLength={1}
-          minLength={1}
-          onChange={getInputValue}
-        /> */}
-
         {winGame || gameOver ? (
           <button className="button-57" id="submitBtn" onClick={restartGame}>
             {" "}

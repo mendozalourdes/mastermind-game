@@ -2,8 +2,7 @@ import React from "react";
 import Row from "./Row";
 
 
-const BoardGame = ({allUserGuesses, allHints, secretCode}) => {
-  
+const BoardGame = ({allUserGuesses, allHints, secretCode, guessesLeft}) => {
 
   let everyGuessRow = allUserGuesses.map((guess, i) => {
     
@@ -19,32 +18,30 @@ const BoardGame = ({allUserGuesses, allHints, secretCode}) => {
   
 })
 
-const basicGameRows = []
-    for (let i = 0; i < 10; i++) {
-      basicGameRows.push(
-          <div className="single-row">
-            <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
-            <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
-            <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
-            <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
-          </div>
+let gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        )
-    }
+const basicGameRows = gameBoard.map((num, i) => {
+  return  <div key={i + 1} className="single-row">
+  <div  id={i + 1} className={" circle demo " }>❓</div>
+  <div  id={i + 1} className={" circle demo " }>❓</div>
+  <div id={i + 1} className={" circle demo " }>❓</div>
+  <div id={i + 1} className={" circle demo " }>❓</div>
+</div>
 
-    const difficultGameRows = []
-    for (let i = 0; i < 10; i++) {
-      difficultGameRows.push(
-          <div className="single-row">
-            <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
-            <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
-            <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
-            <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
-            <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
-          </div>
+})
 
-        )
-    }
+
+    const difficultGameRows = gameBoard.map((num, i) => {
+      return  <div key={i + 1} className="single-row"> 
+      <div  id={i + 1} className={" circle demo " }>❓</div>
+      <div  id={i + 1} className={" circle demo " }>❓</div>
+      <div id={i + 1} className={" circle demo " }>❓</div>
+      <div id={i + 1} className={" circle demo " }>❓</div>
+      <div id={i + 1} className={" circle demo " }>❓</div>
+      <div key={i + 1} id={i + 1} className={" circle demo " }>❓</div>
+    </div>
+    
+    })
 
 
 
