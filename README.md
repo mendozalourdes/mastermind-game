@@ -9,7 +9,7 @@
 
 ## Overview
 
-<i>MasterMind</i>  is an application  inspired by the classic boardgame from 1970[read more about the classic game here](https://boardgamegeek.com/boardgame/2392/mastermind). The code was generated using [Random.org's](https://www.random.org/) free API to generate 8 random digits from 0 -7 in order to create the 4 digit code, or the 6 digit code for the difficult level. 
+<i>MasterMind</i>  is an application  inspired by the classic boardgame from 1970 ([read more about the classic game here](https://boardgamegeek.com/boardgame/2392/mastermind)). The code was generated using [Random.org's](https://www.random.org/) free API to generate 8 random digits from 0 -7 in order to create the 4 digit code, or the 6 digit code for the difficult level. User's wins and losses are stored unless they choose to delete/reset their wins/losses. 
 
 ## Installation and Viewing 
 
