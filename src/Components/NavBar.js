@@ -4,25 +4,14 @@ import { colors } from "../Utils/colors";
 
 const NavBar = (props) => {
   const [instructionsIsOpen, setinstructionsIsOpen] = useState(false);
-
   const [configurationsIsOpen, setConfigurationsIsOpen] = useState(false);
 
+  //Handles the change of difficulty option
   const handleChange = (event) => {
     props.resetGuesses([], event);
     props.handleLevelChange(event.target.value);
     setConfigurationsIsOpen(!configurationsIsOpen);
-    // props.restartGame();
   };
-
-  let allCircles = Object.values(colors).map((color, i) => {
-    return (
-      <section key={i} className="circles-numbers">
-        <div key={i} className={"one-row circle demo " + color}>
-          {i}
-        </div>
-      </section>
-    );
-  });
 
   return (
     <div className="full-nav-bar">
@@ -58,24 +47,38 @@ const NavBar = (props) => {
                 </option>
               </select>
             </form>
-            <p className="underline">Reset Your Stats</p>
-            <button className="button-57" onClick={props.handleResetStats}>
-              {" "}
-              <span className="text">Reset Stats</span>
-              <span>Fresh Start, Let's Go!</span>
-            </button>
+            <div className="configuration-buttons">
+              <p className="underline">Reset Your Stats</p>
+              <p className="underline">Restart Game</p>
+            </div>
+            <div className="configuration-buttons">
+              <button className="button-57" onClick={props.handleResetStats}>
+                {" "}
+                <span className="text">Reset Stats</span>
+                <span>Fresh Start, Let's Go!</span>
+              </button>
+              <button
+                className="button-57 restart-button"
+                onClick={props.restartGame}
+              >
+                <span className="text">Restart Game</span>
+                <span>Ready?</span>
+              </button>
+            </div>
           </div>
         </section>
         <ul className={instructionsIsOpen ? "content show rules" : "content"}>
           <p className="underline">Rules</p>
-          <li>1. Computer will generate a four or six digit code. </li>
+          <li>
+            1. Computer will generate a four or six digit code, player's choice.{" "}
+          </li>
           <li>
             2. Player attempts to guess the code, inputting guess into the form.
           </li>
           <li>
-            3. Computer will display how many correct values were included in
-            the guess, as well as how many of those correct values were in the
-            correct placement in the form of hints. ( 🟢 🟡 🔴 )
+            3. Computer will display how many correct values were in the guess,
+            and how many of those values were in the correct placement via
+            hints. ( 🟢 🟡 🔴 )
           </li>
           <li>4. Player will have 10 opportunites to submit a guess. </li>
           <li>
@@ -100,9 +103,6 @@ const NavBar = (props) => {
           </div>
         </ul>
       </div>
-      <section className="description-section">
-        <div className="description-row">{allCircles}</div>
-      </section>
     </div>
   );
 };

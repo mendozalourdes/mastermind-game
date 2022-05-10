@@ -9,12 +9,12 @@ const GameContainer = ({
   secretCode,
   checkNumPlacement,
   checkCorrectNumsGuess,
-  getBasicCode,
-  useLocalStorage, 
-  checkHints, 
+  getCode,
+  useLocalStorage,
+  checkHints,
   handleInputChange,
-  gameLevel, 
-  handleLevelChange
+  gameLevel,
+  handleLevelChange,
 }) => {
   const [userGuess, setUserGuess] = useState(null);
   const [allUserGuesses, setAllUserGuesses] = useState([]);
@@ -22,23 +22,27 @@ const GameContainer = ({
   const [correctNumsGuess, setCorrectNumsGuess] = useState(null);
   const [hints, setHints] = useState([]);
   const [guessesLeft, setGuessesLeft] = useState(10);
-  const [gamesWon, setGamesWon] = useLocalStorage('gamesWon', 0)
-  const [gamesLost, setGamesLost] = useLocalStorage('gamesLost', 0);
+  const [gamesWon, setGamesWon] = useLocalStorage("gamesWon", 0);
+  const [gamesLost, setGamesLost] = useLocalStorage("gamesLost", 0);
   const [winGame, setWinGame] = useState(false);
+  const [loseGame, setLoseGame] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
   const bottomOfPageRef = useRef(null);
-  const myRefs= useRef([]);
+  const myRefs = useRef([]);
 
+  //Scrolls to the bottom of the page for the user to focus on the input fields
   useEffect(() => {
     bottomOfPageRef.current.scrollIntoView({ behavior: "smooth" });
   });
 
+//Handles the win/lose modal
   const handleShowModal = () => {
     setIsOpen(!isOpen);
   };
 
+//Updates state when user wins
   const handleWin = () => {
     setGamesWon(gamesWon + 1);
     setWinGame(true);
@@ -46,14 +50,17 @@ const GameContainer = ({
     setIsOpen(true);
   };
 
+//Updates state when user loses
   const handleLoss = () => {
     setGamesLost(gamesLost + 1);
     setGameOver(true);
     setIsOpen(true);
+    setLoseGame(true);
   };
 
+//Restarts the game, resets user inputs
   const restartGame = () => {
-    getBasicCode();
+    getCode();
     setUserGuess(null);
     setAllUserGuesses([]);
     setCorrectNumPlacement(null);
@@ -65,6 +72,7 @@ const GameContainer = ({
     handleShowModal();
   };
 
+//Handles guess submission, updates state
   const onSubmit = (event) => {
     event.preventDefault();
     let guess = Object.values(userGuess);
@@ -79,6 +87,7 @@ const GameContainer = ({
     myRefs.current[0].focus();
   };
 
+//Receives the input fields, to capture each entered number
   const getInputValue = (event) => {
     const inputValue = parseInt(event.target.value);
     handleInputChange(event);
@@ -88,11 +97,13 @@ const GameContainer = ({
     });
   };
 
+//Clears the input fields for user to have a blank form each time
   const clearInputs = () => {
     document.querySelectorAll("input").forEach((input) => (input.value = ""));
     setUserGuess(null);
   };
 
+//determines whether the player has won or lost
   const winOrLose = () => {
     let guess = Object.values(userGuess);
 
@@ -106,96 +117,104 @@ const GameContainer = ({
     }
   };
 
+//Reveals the winning code whether the user wins or loses
   const secretColors = () => {
     return secretCode.map((num, i) => {
       return (
         <div key={i} className={" circle demo " + colors[num]}>
           {num}
-        </div>);});
+        </div>
+      );
+    });
   };
 
+//Resets the guesses after the user updates the difficulty level
   const resetGuesses = (value, event) => {
     setAllUserGuesses(value);
     setHints(value);
     clearInputs(event);
-    setGuessesLeft(10)
-  }
+    setGuessesLeft(10);
+  };
 
+//Renders input fields based on the length of the secret code
   let fullForm = secretCode.map((num, i) => {
     return (
-        <input
-           className="num-input"
-           type="text"
-           name={`${"input-"+ i}`}
-           id={i}
-           key={i}
-           min='0'
-            max='7'
-            ref={(el) => (myRefs.current[i] = el)}
-            onPaste={(e) => {
-              e.preventDefault();
-              return false;
-            }}
-            onKeyPress={(event) => {
-              if (!/[0-7]/.test(event.key)) {
-                event.preventDefault();
-              }
-            }}
-            required
-            disabled={winGame || gameOver}
-            maxLength={1}
-            minLength={1}
-            onChange={getInputValue}
-           />
-    )
-})
+      <input
+        className="num-input"
+        type="text"
+        name={`${"input-" + i}`}
+        id={i}
+        key={i}
+        min="0"
+        max="7"
+        ref={(el) => (myRefs.current[i] = el)}
+        onPaste={(e) => {
+          e.preventDefault();
+          return false;
+        }}
+        onKeyPress={(event) => {
+          if (!/[0-7]/.test(event.key)) {
+            event.preventDefault();
+          }
+        }}
+        required
+        disabled={winGame || gameOver}
+        maxLength={1}
+        minLength={1}
+        onChange={getInputValue}
+      />
+    );
+  });
 
-const handleResetStats = () => {
-  setGamesWon(0)
-  setGamesLost(0)
-  console.log("gamesWon", gamesWon)
-}
+//Handles the reset stats button in configurations
+  const handleResetStats = () => {
+    setGamesWon(0);
+    setGamesLost(0);
+    console.log("gamesWon", gamesWon);
+  };
 
   return (
     <div className="game">
-          <NavBar secretCode={secretCode} handleResetStats={handleResetStats} restartGame={restartGame} handleLevelChange={handleLevelChange} resetGuesses={resetGuesses} allUserGuesses={allUserGuesses} gameLevel={gameLevel}  />
-    <div className="guess-input-section">
-      {gameOver && isOpen && (
-        <dialog className={winGame ? "dialog-win" : "dialog-lose"} open>
-          <a href="#" className="close" onClick={handleShowModal}>      
-          </a>
-          {winGame ? (
-            <p className="win-statement">
-              <p className="win-or-lose">You Won!!!</p> 
-              <p>The secret code was:</p>
-              <div className="single-row">{secretColors()}</div>{" "}
-            </p>
-          ) : (
-            <p className="lose-statement">
-             <p className="win-or-lose">You Lost ;(</p> 
-              <p>The secret code was:</p>
-              <div className="single-row">{secretColors()}</div>{" "}
-            </p>
-          )}
-          <button className="button-57 restart-button" onClick={restartGame}>
-            {" "}
-            <span className="text">Restart Game</span>
-            <span>Ready?</span>
-          </button>
-        </dialog>
-      )}
-      <Results
-        gamesWon={gamesWon}
-        gamesLost={gamesLost}
+      <NavBar
+        secretCode={secretCode}
+        handleResetStats={handleResetStats}
+        restartGame={restartGame}
+        handleLevelChange={handleLevelChange}
+        resetGuesses={resetGuesses}
         allUserGuesses={allUserGuesses}
-        guessesLeft={guessesLeft}
+        gameLevel={gameLevel}
       />
-              <button className="button-57" onClick={restartGame}>
-            {" "}
-            <span className="text">Restart Game</span>
-            <span>Ready?</span>
-          </button>
-      <section className="guess-input-section">
+      <div className="guess-input-section">
+        {gameOver && isOpen && (
+          <dialog className={winGame ? "dialog-win" : "dialog-lose"} open>
+            <a href="#" className="close" onClick={handleShowModal}></a>
+            {winGame ? (
+              <p className="win-statement">
+                <p className="win-or-lose">You Won!!!</p>
+                <p>The secret code was:</p>
+                <div className="single-row">{secretColors()}</div>{" "}
+              </p>
+            ) : (
+              <p className="lose-statement">
+                <p className="win-or-lose">You Lost ;(</p>
+                <p>The secret code was:</p>
+                <div className="single-row">{secretColors()}</div>{" "}
+              </p>
+            )}
+            <button className="button-57 restart-button" onClick={restartGame}>
+              {" "}
+              <span className="text">Restart Game</span>
+              <span>Ready?</span>
+            </button>
+          </dialog>
+        )}
+        <Results
+          gamesWon={gamesWon}
+          gamesLost={gamesLost}
+          allUserGuesses={allUserGuesses}
+          guessesLeft={guessesLeft}
+        />
+        <section className="guess-input-section">
           <BoardGame
             allUserGuesses={allUserGuesses}
             secretCode={secretCode}
@@ -203,32 +222,32 @@ const handleResetStats = () => {
             allHints={hints}
             guessesLeft={guessesLeft}
           />
-      </section>
+        </section>
 
-      <form className="form-section input-form" onSubmit={onSubmit}>
-        {fullForm}
-        {winGame || gameOver ? (
-          <button className="button-57" id="submitBtn" onClick={restartGame}>
-            {" "}
-            <span className="text">Restart Game</span>
-            <span>Ready?</span>
-          </button>
-        ) : (
-          <button
-            className="button-57"
-            role="button"
-            type="submit"
-            id="submitBtn"
-            title="Submit My Guess!"
-            disabled={winGame || gameOver}
-          >
-            <span className="text">Submit</span>
-            <span>You Sure?</span>
-          </button>
-        )}
-      </form>
-      <div ref={bottomOfPageRef} />
-    </div>
+        <form className="form-section input-form" onSubmit={onSubmit}>
+          {fullForm}
+          {winGame || gameOver ? (
+            <button className="button-57" id="submitBtn" onClick={restartGame}>
+              {" "}
+              <span className="text">Restart Game</span>
+              <span>Ready?</span>
+            </button>
+          ) : (
+            <button
+              className="button-57"
+              role="button"
+              type="submit"
+              id="submitBtn"
+              title="Submit My Guess!"
+              disabled={winGame || gameOver}
+            >
+              <span className="text">Submit</span>
+              <span>You Sure?</span>
+            </button>
+          )}
+        </form>
+        <div ref={bottomOfPageRef} />
+      </div>
     </div>
   );
 };

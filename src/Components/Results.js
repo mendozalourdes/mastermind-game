@@ -1,19 +1,14 @@
-import React from 'react';
-import { useState } from "react";
+import React from "react";
 
-const Results = ({guessesLeft, gamesWon, gamesLost}) => {
-
-    return (
-        <section className="results">
-            <h2>Results</h2>
-            <div className="remaining-guesses">
-                <p>Remaining Guesses : {guessesLeft} </p>
-            <p>Games Lost: {gamesLost}</p>
-            <p>Games Won: {gamesWon}</p>
-
-            </div>
-        </section>
-    );
+const Results = ({ guessesLeft, gamesWon, gamesLost }) => {
+  return (
+    <section className="game-stats">
+      <h1 className="game-stats-header">Game Stats</h1>
+      <p>Games Lost: {gamesLost}</p>
+      <p>Games Won: {gamesWon}</p>
+      <p>Remaining Guesses : {guessesLeft} </p>
+    </section>
+  );
 };
 
 export default Results;
