@@ -1,70 +1,57 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# <p align="center"><i>MasterMind</i></p>
 
-## Available Scripts
+### Table of Contents
+- [Overview](#overview)
+- [Installation & Viewing](#installation-and-viewing)
+- [Tech Stack](#tech-stack)
+- [Contributors](#contributors)
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+<i>MasterMind</i>  is an application  inspired by the classic boardgame from 1970[read more about the classic game here](https://boardgamegeek.com/boardgame/2392/mastermind). The code was generated using [Random.org's](https://www.random.org/) free API to generate 8 random digits from 0 -7 in order to create the 4 digit code, or the 6 digit code for the difficult level. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation and Viewing 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To view this application on your local machine:
 
-### `npm test`
+- Clone down this repository
+- Run `npm i` in your terminal
+- Run `npm start` in your terminal
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Functionality 
 
-### `npm run build`
+#### Basic Game Walk Through <br>
+- User can view instructions, and begin basic game. <br>
+![Basic Game](https://user-images.githubusercontent.com/78240633/167695345-a9688dbe-cd40-49bf-9557-06d5884feea1.gif)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Difficult Game and Restart <br>
+- User can change to difficult mode, and restart the game. <br>
+![Difficult mode](https://user-images.githubusercontent.com/78240633/167696384-fe0a92fa-959d-4f94-9472-75aec2b4fd18.gif)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Tech Stack
 
-### `npm run eject`
+<div align="center">  
+<img src="https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=flat-square" alt="React Badge">
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=flat-square" alt="JavaScript Badge">
+<img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=fff&style=flat-square" alt="CSS3 Badge">
+</div>  
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contributors
+<table>
+         <tr>
+        <td> Lourdes Mendoza <a href="https://github.com/mendozalourdes">GitHub</td>
+      </tr>
+      </tr>
+<td><img src="https://avatars.githubusercontent.com/u/78240633?v=4" alt="Lourdes Mendoza photo"
+width="150" height="auto" /></td>
+    </tr>
+</table>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**************************************************************************
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**[Back to top](#table-of-contents)**
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
