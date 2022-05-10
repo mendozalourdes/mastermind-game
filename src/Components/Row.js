@@ -1,14 +1,19 @@
 import React from "react";
 import { colors } from "../Utils/colors";
-const { useState, useEffect, useRef } = React;
 
 const Row = ({ allUserGuesses, id, oneHint }) => {
+  //Renders each game piece from the guesses with its corresponding color
   const eachGuessColor = () => {
     return allUserGuesses.map((guess, i) => {
-      return <div key={i + 1} id={i + 1} className={" circle demo " + colors[guess]}>{guess}</div>;
+      return (
+        <div key={i + 1} id={i + 1} className={" circle demo " + colors[guess]}>
+          {guess}
+        </div>
+      );
     });
   };
 
+  //Renders each hint from the guesses with its corresponding color
   const eachHint = () => {
     return oneHint.map((singleHint, i) => {
       return (
