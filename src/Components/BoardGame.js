@@ -18,59 +18,30 @@ const BoardGame = ({ allUserGuesses, allHints, secretCode }) => {
 
   //Render a blank board for the corresponding difficulty
 
+  let circlesByCodeLength = secretCode.map((num, i) => {
+    return (
+      <div id={i + 1} key={i + 1} className={" circle demo "}>
+      ❓
+    </div>
+    )
+  })
+
   let gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const basicGameRows = gameBoard.map((num, i) => {
+  const gameRows = gameBoard.map((num, i) => {
+
     return (
+
       <div key={i + 1} className="single-row">
-        <div id={i + 1} className={" circle demo "}>
-          ❓
-        </div>
-        <div id={i + 1} className={" circle demo "}>
-          ❓
-        </div>
-        <div id={i + 1} className={" circle demo "}>
-          ❓
-        </div>
-        <div id={i + 1} className={" circle demo "}>
-          ❓
-        </div>
+        {circlesByCodeLength}
       </div>
     );
   });
 
-  const difficultGameRows = gameBoard.map((num, i) => {
-    return (
-      <div key={i + 1} className="single-row">
-        <div id={i + 1} className={" circle demo "}>
-          ❓
-        </div>
-        <div id={i + 1} className={" circle demo "}>
-          ❓
-        </div>
-        <div id={i + 1} className={" circle demo "}>
-          ❓
-        </div>
-        <div id={i + 1} className={" circle demo "}>
-          ❓
-        </div>
-        <div id={i + 1} className={" circle demo "}>
-          ❓
-        </div>
-        <div key={i + 1} id={i + 1} className={" circle demo "}>
-          ❓
-        </div>
-      </div>
-    );
-  });
 
   return (
-    <div className="board-game">
-      {allUserGuesses.length
-        ? everyGuessRow
-        : secretCode.length === 4
-        ? basicGameRows
-        : difficultGameRows}
+    <div className={allUserGuesses.length ? "board-game"  : "pre-game"}>
+      {allUserGuesses.length ? everyGuessRow : gameRows}
     </div>
   );
 };
