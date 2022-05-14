@@ -10,38 +10,22 @@ const App = () => {
   const [secretCode, setSecretCode] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  const [gameLevel, setGameLevel] = useState("basic");
+  const [gameLevel, setGameLevel] = useState(4);
 
 //Fetch call, depending on the game's level
   const getCode = () => {
-    let url = `https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new`;
-
-    if (gameLevel === "basic") {
+    let url = `https://www.random.org/integers/?num=${gameLevel}&min=0&max=7&col=1&base=10&format=plain&rnd=new`;
       axios
         .get(url)
         .then((response) => {
           return setSecretCode(
-            response.data.split("\n").slice(0, 4).map(Number)
+            response.data.split("\n").slice(0, `${gameLevel}`).map(Number)
           );
         })
         .then((response) => {
           return setIsLoading(false);
         })
         .catch((error) => setError(error.message));
-    } else if (gameLevel === "difficult") {
-      url = `https://www.random.org/integers/?num=6&min=0&max=7&col=1&base=10&format=plain&rnd=new`;
-      axios
-        .get(url)
-        .then((response) => {
-          return setSecretCode(
-            response.data.split("\n").slice(0, 6).map(Number)
-          );
-        })
-        .then((response) => {
-          return setIsLoading(false);
-        })
-        .catch((error) => setError(error.message));
-    }
   };
 
 //Updates whenever the gameLevel state is modified 
