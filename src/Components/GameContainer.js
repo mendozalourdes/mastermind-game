@@ -88,18 +88,25 @@ const GameContainer = ({
   };
 
 //Receives the input fields, to capture each entered number
-  const getInputValue = (event) => {
-    const inputValue = parseInt(event.target.value);
+const getInputValue = (event) => {
+  const inputValue = parseInt(event.target.value);
+  if(inputValue || inputValue === 0) {
+    event.target.className = `num-input ${colors[inputValue]} `
     handleInputChange(event);
     setUserGuess({
       ...userGuess,
       [event.target.name]: inputValue,
     });
-  };
-
+  }
+   else {
+    event.target.className = "num-input"
+  }
+};
 //Clears the input fields for user to have a blank form each time
   const clearInputs = () => {
     document.querySelectorAll("input").forEach((input) => (input.value = ""));
+    document.querySelectorAll("input").forEach((input) => (input.className = "num-input"));
+
     setUserGuess(null);
   };
 
@@ -170,7 +177,6 @@ const GameContainer = ({
   const handleResetStats = () => {
     setGamesWon(0);
     setGamesLost(0);
-    console.log("gamesWon", gamesWon);
   };
 
   return (
@@ -189,17 +195,17 @@ const GameContainer = ({
           <dialog className={winGame ? "dialog-win" : "dialog-lose"} open>
             <a href="#" className="close" onClick={handleShowModal}></a>
             {winGame ? (
-              <p className="win-statement">
+              <div className="win-statement">
                 <p className="win-or-lose">You Won!!!</p>
                 <p>The secret code was:</p>
                 <div className="single-row">{secretColors()}</div>{" "}
-              </p>
+              </div>
             ) : (
-              <p className="lose-statement">
+              <div className="lose-statement">
                 <p className="win-or-lose">You Lost ;(</p>
                 <p>The secret code was:</p>
                 <div className="single-row">{secretColors()}</div>{" "}
-              </p>
+              </div>
             )}
             <button className="button-57 restart-button" onClick={restartGame}>
               {" "}

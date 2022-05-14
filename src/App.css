@@ -110,16 +110,31 @@
   flex-direction: column;
 }
 
+.pre-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+  width: 30em;
+  height: 100%;
+  border: 10px solid turquoise;
+  box-shadow: 0 10px 30px 6px magenta;
+  border-radius: 20px;
+  background: white;
+}
+
+
 .board-game {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 5%;
-  width: 30rem;
+  width: 125%;
   height: 100%;
   border: 10px solid turquoise;
   box-shadow: 0 10px 30px 6px magenta;
   border-radius: 20px;
+  background: white;
 }
 
 .demo {
@@ -153,7 +168,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  width: 30rem;
+  width: 35rem;
 }
 
 form {
@@ -166,6 +181,7 @@ form {
 input {
   width: 2em;
   height: 2em;
+  color: white;
   font-size: 1.5em;
   text-align: center;
   border: none;
@@ -295,7 +311,7 @@ input:disabled {
   height: 40px;
   margin: 20px;
   display: grid;
-  grid-template-columns: repeat(2, 2fr);
+  grid-template-columns: repeat(4, 2fr);
   grid-column-gap: 20px;
   grid-row-gap: 10px;
 }
@@ -308,7 +324,7 @@ input:disabled {
   border: 5px solid #c2e8c7;
   position: sticky;
   top: 10%;
-  width: 29em;
+  width: 32em;
   height: 20em;
   z-index: 11;
   display: flex;
@@ -322,7 +338,7 @@ input:disabled {
   border: 10px solid #f48181;
   position: sticky;
   top: 40%;
-  width: 29em;
+  width: 32em;
   height: 20em;
   z-index: 11;
   display: flex;
@@ -410,9 +426,4 @@ input:disabled {
 
 select {
   width: 95%;
-}
-
-.board-game {
-  background: white;
-  ;
 }
