@@ -9,7 +9,7 @@ const NavBar = (props) => {
   //Handles the change of difficulty option
   const handleChange = (event) => {
     props.resetGuesses([], event);
-    props.handleLevelChange(event.target.value);
+    props.handleLevelChange(parseInt(event.target.value));
     setConfigurationsIsOpen(!configurationsIsOpen);
   };
 
@@ -39,11 +39,17 @@ const NavBar = (props) => {
             <p className="underline">Change Difficulty Level</p>
             <form className="difficulty-form" onChange={handleChange}>
               <select className="difficulty-form">
-                <option className="basic-option" value="basic">
-                  Basic
+                <option className="basic-option level-one" value="4">
+                  Intro
                 </option>
-                <option className="difficult-option" value="difficult">
+                <option className="difficult-option level-two" value="5">
+                  Challenge
+                </option>
+                <option className="basic-option level-3" value="6">
                   Difficult
+                </option>
+                <option className="difficult-option level-4" value="7">
+                  Scary
                 </option>
               </select>
             </form>
